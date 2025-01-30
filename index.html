@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #282828;
+      flex-direction: column;
+    }
+
+    .video-container {
+      background-color: #1a1a1a;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      width: 640px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video {
+      width: 60%;
+      border-radius: 15px;
+    }
+
+    .controls {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      width: 58%;
+    }
+
+    .controls button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 10px;
+      transition: background-color 0.3s;
+      margin: 0 10px;
+    }
+
+    .controls button:hover {
+      background-color: #444;
+      border-radius: 5px;
+    }
+
+    .controls .fa {
+      font-size: 18px;
+    }
+
+    
+    .time {
+      background: linear-gradient(to right, #00b3b3 0%, #005555 100%);
+      height: 8px;
+      border-radius: 5px;
+      width: 60%;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      margin-top: 10px;
+    }
+
+  
+    .time::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #f5f5f5;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .time::-webkit-slider-thumb:hover {
+      background-color: #00b3b3;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .time::-webkit-slider-runnable-track {
+      background: transparent;
+      border: none;
+    }
+
+    .time::-moz-range-thumb {
+      background-color: #f5f5f5;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .time::-moz-range-thumb:hover {
+      background-color: #00b3b3;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .time::-moz-range-track {
+      background: transparent;
+      border: none;
+    }
+
+    
+    .sound {
+      background: #444;
+      height: 5px;
+      border-radius: 5px;
+      width: 100px; 
+      margin-left: 10px;
+    }
+
+    .sound::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #f5f5f5;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+    }
+
+    .sound::-moz-range-thumb {
+      background-color: #f5f5f5;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+    }
+
+ 
+    #back,
+    #skip {
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 12px;
+      transition: background-color 0.3s, transform 0.2s;
+      margin: 0 15px;
+    }
+
+    #back:hover,
+    #skip:hover {
+      background-color: #444;
+      border-radius: 50%;
+      transform: scale(1.1);
+    }
+
+    #back:active,
+    #skip:active {
+      transform: scale(0.95);
+    }
+
+    #back .fa,
+    #skip .fa {
+      font-size: 30px;
+    }
+  </style>
+  <body>
+    <video class="video" src="./video.mp4"></video>
+    <input type="range" class="time" min="0" value="0" />
+    <div class="controls">
+      <button id="play"><i class="fa-solid fa-play"></i></button>
+      <button id="pause"><i class="fa-solid fa-pause"></i></button>
+      <button id="stop"><i class="fa-solid fa-stop"></i></button>
+      <button id="mute"><i class="fa-solid fa-volume-xmark"></i></button>
+      <input type="range" class="sound" value="1" max="1" min="0" step="0.1" />
+      <button id="back"><i class="fa-solid fa-backward"></i></button>
+      <button id="skip"><i class="fa-solid fa-forward"></i></button>
+    </div>
+
+    <script src="./build/index.js"></script>
+  </body>
+</html>
