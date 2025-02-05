@@ -1,52 +1,72 @@
-var video = document.querySelector("video");
-var play = document.querySelector("#play");
-var pause = document.querySelector("#pause");
-var Stop = document.querySelector("#stop");
-var mute = document.querySelector("#mute");
-var time = document.querySelector(".time");
-var sound = document.querySelector(".sound");
-var skip = document.querySelector("#skip");
-var back = document.querySelector("#back");
-window.addEventListener("load", function () {
-    if (time) {
-        time.value = "0";
-        time.max = video.duration.toString();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var VideoPlayer = /** @class */ (function () {
+    function VideoPlayer(videoSrc) {
+        this.video = document.querySelector("video");
+        this.video.src = videoSrc;
+        this.playButton = document.querySelector("#play");
+        this.pauseButton = document.querySelector("#pause");
+        this.stopButton = document.querySelector("#stop");
+        this.muteButton = document.querySelector("#mute");
+        this.timeSlider = document.querySelector(".time");
+        this.volumeSlider = document.querySelector(".sound");
+        this.skipButton = document.querySelector("#skip");
+        this.backButton = document.querySelector("#back");
+        this.initialize();
     }
-});
-play.addEventListener("click", function () {
-    video.play();
-});
-pause.addEventListener("click", function () {
-    video.pause();
-});
-Stop.addEventListener("click", function () {
-    video.load();
-    video.pause();
-});
-mute.addEventListener("click", function () {
-    video.muted = !video.muted;
-    sound.value = "0";
-});
-time.addEventListener("input", function () {
-    if (time) {
-        video.currentTime = parseFloat(time.value);
-    }
-});
-video.addEventListener("timeupdate", function () {
-    time.value = video.currentTime.toString();
-});
-sound.addEventListener("input", function () {
-    video.volume = parseFloat(this.value);
-});
-skip.addEventListener("click", function () {
-    video.currentTime += 2;
-    if (video.currentTime > video.duration) {
-        video.currentTime = video.duration;
-    }
-});
-back.addEventListener("click", function () {
-    video.currentTime -= 2;
-    if (video.currentTime < 0) {
-        video.currentTime = 0; // Prevent the time from going below 0
-    }
-});
+    VideoPlayer.prototype.initialize = function () {
+        var _this = this;
+        window.addEventListener("load", function () { return _this.setupTimeSlider(); });
+        this.playButton.addEventListener("click", function () { return _this.play(); });
+        this.pauseButton.addEventListener("click", function () { return _this.pause(); });
+        this.stopButton.addEventListener("click", function () { return _this.stop(); });
+        this.muteButton.addEventListener("click", function () { return _this.toggleMute(); });
+        this.timeSlider.addEventListener("input", function () { return _this.updateTime(); });
+        this.video.addEventListener("timeupdate", function () { return _this.syncTimeSlider(); });
+        this.volumeSlider.addEventListener("input", function () { return _this.updateVolume(); });
+        this.skipButton.addEventListener("click", function () { return _this.skip(2); });
+        this.backButton.addEventListener("click", function () { return _this.skip(-2); });
+    };
+    VideoPlayer.prototype.setupTimeSlider = function () {
+        if (this.timeSlider) {
+            this.timeSlider.value = "0";
+            this.timeSlider.max = this.video.duration.toString();
+        }
+    };
+    VideoPlayer.prototype.play = function () {
+        this.video.play();
+    };
+    VideoPlayer.prototype.pause = function () {
+        this.video.pause();
+    };
+    VideoPlayer.prototype.stop = function () {
+        this.video.load();
+        this.video.pause();
+    };
+    VideoPlayer.prototype.toggleMute = function () {
+        this.video.muted = !this.video.muted;
+        this.volumeSlider.value = "0";
+    };
+    VideoPlayer.prototype.updateTime = function () {
+        this.video.currentTime = parseFloat(this.timeSlider.value);
+    };
+    VideoPlayer.prototype.syncTimeSlider = function () {
+        this.timeSlider.value = this.video.currentTime.toString();
+    };
+    VideoPlayer.prototype.updateVolume = function () {
+        this.video.volume = parseFloat(this.volumeSlider.value);
+    };
+    VideoPlayer.prototype.skip = function (seconds) {
+        this.video.currentTime += seconds;
+        if (this.video.currentTime < 0) {
+            this.video.currentTime = 0;
+        }
+        else if (this.video.currentTime > this.video.duration) {
+            this.video.currentTime = this.video.duration;
+        }
+    };
+    return VideoPlayer;
+}());
+// Example usage:
+var videoPlayer = new VideoPlayer('C:/Users/COMPU MARTS/Desktop/type_script/video_player_project/video.mp4');
+exports.default = VideoPlayer;
